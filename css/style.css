@@ -172,6 +172,9 @@ h2 {
 /* end text styling */
 
 @media screen and (max-width: 900px) {
+  .container {
+    width: 100%;
+  }
   .box {
     width: 100%;
     text-align: center;

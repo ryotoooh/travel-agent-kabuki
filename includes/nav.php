@@ -10,7 +10,7 @@
       <a href="./insert_form.php">Add Destination</a>
       <a href="./logout.php">Logout</a>
     <?php } else { ?>
-      <a href="./login_form.php">Login</a>
+      <a href="./login.php">Login</a>
     <?php } ?>
   </div>
 </nav>

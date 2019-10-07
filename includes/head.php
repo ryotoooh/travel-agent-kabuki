@@ -28,7 +28,7 @@
       ?>
         <p class="txt-center my-xs" style="color: white; font-size: 1.25rem;">
           <?php echo welcome() . ', '; ?>
-          <?php echo $_SESSION['login']['username'] . ' san.'; ?>
+          <?php echo $_SESSION['login']['firstname'] . ' san.'; ?>
         </p>
       <?php } ?>
     </header>

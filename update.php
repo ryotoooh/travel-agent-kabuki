@@ -34,7 +34,7 @@ if(!isset($_POST['submit'])) { // check if form is submitted
   !is_float($price)
 ) {
   $result_msg = 'Please fill in all form fields with valid format.';
-  if($error != 0 && $error != 4) { $result_msg .= '<br />' . $connection->check_image($error)['msg']; }
+  if($error != 0 && $error != 4) { $result_msg .= '<br />' . $connection->checkImage($error)['msg']; }
 } else {
   if($_FILES['image']['error'] == 4) { // check if the image is attached
     $sql = "UPDATE products SET

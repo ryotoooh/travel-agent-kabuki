@@ -25,7 +25,7 @@ $result_msg = ''; // result message to show user
 if(!isset($_POST['submit'])) { // check if form is submitted
   $result_msg = "Unauthorised access.";
 } elseif(
-  $connection->check_image($error)['result'] == 0 ||
+  $connection->checkImage($error)['result'] == 0 ||
   empty($region) ||
   empty($city) ||
   empty($description) ||
@@ -35,7 +35,7 @@ if(!isset($_POST['submit'])) { // check if form is submitted
   !is_float($price)
 ) {
   $result_msg = 'Please fill in all form fields with valid format.';
-  $result_msg .= '<br />' . $connection->check_image($error)['msg'];
+  $result_msg .= '<br />' . $connection->checkImage($error)['msg'];
 } else {
   $sql = "INSERT INTO products(region, city, description, cite, price, image, caption) VALUES (?,?,?,?,?,?,?)";
   if($connection->prepareQuery($sql, $region, $city, $description, $cite, $price, $image, $caption)) {
@@ -44,7 +44,7 @@ if(!isset($_POST['submit'])) { // check if form is submitted
     $result = true;
   } else {
     $result_msg = 'New destination not added.';
-    $result_msg .= '<br />' . $connection->check_image($error)['msg'];
+    $result_msg .= '<br />' . $connection->checkImage($error)['msg'];
   }
 }
 ?>
