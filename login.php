@@ -15,11 +15,20 @@ if(isset($_POST['login'])) { // check if form is submitted
 	// Check that the username and password form fields are not left blank.
 	if(!empty($username) || !empty($password)) {
 		if($connection->checkLogin($username, $password)){
-			$result = true;
-			$result_msg = 'Welcome back, ' . $_SESSION['login']['firstname'];
-			$result_msg .= '<br />You will be redirected to Update Destinations page in 5 seconds.';
-			// Re-direct the user to the home/landing page
-			header("Refresh:5; url=display_all.php"); 
+			if($_SESSION['login']['access_level'] == 'Administrator') {
+				$result = true;
+				$result_msg = 'Welcome back, ' . $_SESSION['login']['firstname'];
+				$result_msg .= '<br />You will be redirected to Update Destinations page in 5 seconds.';
+				// Re-direct the user to the home/landing page
+				header("Refresh:5; url=display_all.php");
+			} elseif($_SESSION['login']['access_level'] == 'Guest') {
+				$result = true;
+				$result_msg = 'Welcome back, ' . $_SESSION['login']['firstname'];
+				$result_msg .= '<br />You will be redirected to Add Destinations page in 5 seconds.';
+				// Re-direct the user to the home/landing page
+				header("Refresh:5; url=insert_form.php");
+			}
+ 
 		} else {
 			$result_msg = 'Username and Password are not valid.';
 		}

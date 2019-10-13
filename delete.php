@@ -3,6 +3,8 @@ session_start();
 require_once('initialize.php');
 if(!isset($_SESSION['login'])) { // check if user logged in
   header("Location:login_form.php");
+} elseif($_SESSION['login']['access_level'] == 'Guest') {
+  header("Location:index.php");
 }
 $connection = new dbController(HOST,USER,PASS,DB);
 if(isset($_POST['submit'])) {
@@ -37,7 +39,7 @@ if(!isset($_POST['submit'])) { // check if form is submitted
 
 <main class="content-center">
   <div class="container">
-    <div class="box">
+    <div class="box box-detail">
       <div class="result-msg mt-m <?php if($result){ echo 'result-green'; } else { echo 'result-red'; } ?>">
         <p class="my-s <?php if($result){ echo 'txt-green'; } else { echo 'txt-red'; } ?>"><?php echo $result_msg; ?></p>
       </div>

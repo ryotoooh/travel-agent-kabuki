@@ -3,6 +3,8 @@ session_start();
 require_once('initialize.php');
 if(!isset($_SESSION['login'])) { // check if user logged in
   header("Location:login_form.php");
+} elseif($_SESSION['login']['access_level'] == 'Guest') {
+  header("Location:index.php");
 }
 $connection = new dbController(HOST, USER, PASS, DB);
 if(isset($_GET['id'])) {

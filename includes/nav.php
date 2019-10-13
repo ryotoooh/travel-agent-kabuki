@@ -6,7 +6,9 @@
     </div>
     <a href="./display.php">Destinations</a>
     <?php if(isset($_SESSION['login'])) { ?>
-      <a href="./display_all.php">Update Destinations</a>
+      <?php if($_SESSION['login']['access_level'] == 'Administrator') { ?>
+        <a href="./display_all.php">Update Destinations</a>
+      <?php } ?>
       <a href="./insert_form.php">Add Destination</a>
       <a href="./logout.php">Logout</a>
     <?php } else { ?>
