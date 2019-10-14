@@ -6,15 +6,17 @@ if(!isset($_SESSION['login'])) { // check if user logged in
 }
 $connection = new dbController(HOST, USER, PASS, DB);
 if(isset($_POST['submit'])) {
-  $region = $connection->cleanUp($_POST['region']);
-  $city = $connection->cleanUp($_POST['city']);
-  $description = $connection->cleanUp($_POST['description']);
-  $cite = $connection->cleanUp($_POST['cite']);
+  // cleanUp method not used
+  // avoid dboule-escaping
+  $region = trim(htmlentities($_POST['region']));
+  $city = trim(htmlentities($_POST['city']));
+  $description = trim(htmlentities($_POST['description']));
+  $cite = trim(htmlentities($_POST['cite']));
   $price = (double)$connection->cleanUp($_POST['price']);
   $image = 'images/' . $_FILES['image']['name'];
   $temp = $_FILES['image']['tmp_name'];
   $error = $_FILES['image']['error'];
-  $caption = $connection->cleanUp($_POST['caption']);
+  $caption = trim(htmlentities($_POST['caption']));
   $page_title = 'Add Result of ' . $city;
 }
 include('includes/head.php');
