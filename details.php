@@ -22,6 +22,8 @@ $cite = $record['cite'];
 $price = $record['price'];
 $img_url = $record['image'];
 $cap = $record['caption'];
+
+if($record) {
 ?>
 
 <main>
@@ -43,6 +45,16 @@ $cap = $record['caption'];
   </div>
 </main>
 
-<?php
+<?php } else { ?>
+<main class="content-center">
+  <div class="container">
+    <div class="box">
+      <div class="result-msg mt-m result-red">
+        <p class="my-s txt-red">No destination found.</p>
+      </div>
+    </div>
+  </div>
+</main>
+<?php }
 include('includes/footer.php');
 ?>

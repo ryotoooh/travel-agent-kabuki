@@ -6,12 +6,13 @@ if(!isset($_SESSION['login'])) { // check if user logged in
 } elseif($_SESSION['login']['access_level'] == 'Guest') {
   header("Location:index.php");
 }
-$connection = new dbController(HOST, USER, PASS, DB);
-$sql = "SELECT id, city, description, cite, image, caption FROM products";
-$records = $connection->getAllRecords($sql);
 $page_title = 'Update Destinations';
 include('includes/head.php');
 include('includes/nav.php');
+
+$connection = new dbController(HOST, USER, PASS, DB);
+$sql = "SELECT id, city, description, cite, image, caption FROM products";
+$records = $connection->getAllRecords($sql);
 ?>
 
 <main>

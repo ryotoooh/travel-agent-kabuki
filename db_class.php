@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 0);
+
 class dbController {
   private $conn;
 
@@ -11,33 +13,56 @@ class dbController {
       $this->db = $db
     );
     mysqli_set_charset($this->conn,"utf8");
-    return $this->conn;
+    mysqli_set_charset($this->conn,"utf8");
+    // database conection error handling
+    if(mysqli_connect_error()) {
+      exit('Unable to connect to the database: ' . mysqli_connect_error());
+    } else {
+      return $this->conn;
+    }
+    // end error handling
   }
 
   public function getOneRecord($sql){
     // Receive an SQL query statement ($sql)
     // Run the SQL query on the database specified in the mysqli object - $conn
     $result = $this->conn->query($sql);
-    // Get the results and store in an array
-    $row = $result->fetch_assoc();
-    // Return the results array to the calling program
-    return $row;
+    if($this->conn->error) {
+      $this->logErrors($this->conn->error, $sql);
+      return false;
+    } else {
+      // Get the results and store in an array
+      $row = $result->fetch_assoc();
+    }
+    if(!empty($row)){
+      // Return the results array to the calling program
+      return $row;
+    }
   }
 
   public function getAllRecords($sql){
     // Write the PHP to run the SQL query, storing the results in a variable $result
     $result = $this->conn->query($sql);
-    // We want this code to be repeated so that all results are put in the array. ...while there are still records in the results table , copy the record to $row.
-    if($result->{'num_rows'} !== 0) {
+    // sql query error handling
+    if($this->conn->error) {
+      $this->logErrors($this->conn->error, $sql);
+      return false;
+    } else {
       while($row = $result->fetch_assoc()){
-        // Each time fetch_assoc() puts a record in the $row array, we need to move it to a multidimensional array which can store all the records
         $resultset[] = $row;
       }
-      // When the loop finishes, all the query results have been put in $resultset We can now return the results to the calling program
-      return $resultset;
-    } else {
-      return false;
     }
+    // end error handling
+    if(!empty($resultset)){
+      return $resultset;
+    }
+  }
+
+  function logErrors($error, $sql) {
+    $message = '<p>Error: ' . $error . '</p>';
+    $message .= '<p>Query: ' . $sql . '</p>';
+
+    echo $message;
   }
 
   public function runQuery($sql) {
